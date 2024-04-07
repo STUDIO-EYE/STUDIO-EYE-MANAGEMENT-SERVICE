@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -33,6 +34,12 @@ public class PostResponse {
     @Schema(description = "댓글 갯수")
     private long commentSum;
 
+    @Schema(description = "작성일")
+    private LocalDateTime createdAt;
+
+    @Schema(description = "수정일")
+    private LocalDateTime updatedAt;
+
     public static PostResponse from(Post post, String userName){
 
         return PostResponse.builder()
@@ -42,6 +49,8 @@ public class PostResponse {
                 .userName(userName)
                 .startDate(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss")))
                 .commentSum(post.getCommentList().size())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .build();
     }
 }
