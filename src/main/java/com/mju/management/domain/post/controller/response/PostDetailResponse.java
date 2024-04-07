@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -40,6 +41,12 @@ public class PostDetailResponse {
     @Schema(description = "카테고리")
     Category category;
 
+    @Schema(description = "작성일")
+    private LocalDateTime createdAt;
+
+    @Schema(description = "수정일")
+    private LocalDateTime updatedAt;
+
     public static PostDetailResponse from(Post post, String userName){
 
         return PostDetailResponse.builder()
@@ -51,6 +58,8 @@ public class PostDetailResponse {
                 .startDate(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss")))
                 .commentSum(post.getCommentList().size())
                 .category(post.getCategory())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .build();
     }
 }
