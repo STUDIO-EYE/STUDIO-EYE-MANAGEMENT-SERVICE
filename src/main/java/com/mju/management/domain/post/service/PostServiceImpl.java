@@ -34,8 +34,8 @@ public class PostServiceImpl {
     private final PostRepository postRepository;
     private final ProjectRepository projectRepository;
     private final UserServiceImpl userService;
-
     private final ResponseService responseService;
+    private final CommentRepository commentRepository;
 
 	public CommonResult createPost(CreatePostRequestServiceDto dto) {
         Optional<Project> optionalProject = projectRepository.findById(dto.projectId());
@@ -128,7 +128,6 @@ public class PostServiceImpl {
         return responseService.getSuccessfulResultWithMessage("기획/제작/편집 게시글 삭제에 성공하였습니다.");
     }
 
-    private static CommentRepository commentRepository;
 
     private void checkMemberAuthorization(Project project, Long userId){
         if(!project.isLeaderOrMember(userId))
