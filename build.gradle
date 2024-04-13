@@ -80,8 +80,8 @@ dependencies {
 
 sonarqube {
 	properties {
-		property "sonar.projectKey", "sonar-user"
-		property "sonar.projectName", "sonar-user"
+		property "sonar.projectKey", "sonar-management"
+		property "sonar.projectName", "sonar-management"
 //		property "sonar.sources", "src" // 소스 경로
 //		property "sonar.language", "java" // 언어
 //		property "sonar.java.source", "17"
