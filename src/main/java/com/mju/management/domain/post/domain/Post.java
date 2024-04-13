@@ -2,6 +2,7 @@ package com.mju.management.domain.post.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mju.management.domain.comment.domain.Comment;
@@ -60,6 +61,9 @@ public class Post {
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private List<CommentEntity> commentList = new ArrayList<>();
 
+//	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+	private List<PostFile> postFiles;
 
 	@Builder
 	public Post(String title, String content, Category category, Long writerId) {
