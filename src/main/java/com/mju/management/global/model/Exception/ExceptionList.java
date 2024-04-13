@@ -9,6 +9,7 @@ public enum ExceptionList {
 
     UNKNOWN(-9999, "알 수 없는 오류가 발생하였습니다."),
 
+    INVALID_PARAMETER(-5000, "인자가 잘못 전달되었거나 없습니다."),
     EMPTY_USER(-5051, "유저 정보를 입력해 주세요."),
     NOT_CORRECT_USER(-5052, "수강생이 아닙니다. 수강생으로 로그인 다시 부탁드립니다."),
     NOT_ACCESS_USER(-5053, "접근할 수 없는 유저 입니다."),
