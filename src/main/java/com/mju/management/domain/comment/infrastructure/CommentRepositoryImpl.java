@@ -32,10 +32,10 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public void deleteAll(Post post) {
-//        List<Comment> commentList = commentJpaRepository.findByPost(post);
-//        for(CommentEntity comment : commentList){
-//
-//        }
+        List<Comment> commentList = commentJpaRepository.findByPost(post);
+        for(Comment comment : commentList){
+            this.delete(comment);
+        }
     }
 
 

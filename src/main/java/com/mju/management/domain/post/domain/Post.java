@@ -2,6 +2,7 @@ package com.mju.management.domain.post.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mju.management.domain.comment.domain.Comment;
@@ -9,6 +10,7 @@ import com.mju.management.domain.comment.infrastructure.CommentEntity;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,6 +48,10 @@ public class Post {
 
 	private Long writerId;
 
+	@LastModifiedDate
+	@Column(nullable = true, updatable = true)
+	private LocalDateTime updatedAt;
+
 	// TODO: 프로젝트의 팀원일때만, 게시글을 작성할 수 있도록 확인
 	@ManyToOne
 	@JoinColumn(name = "project_index")
@@ -55,6 +61,9 @@ public class Post {
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private List<CommentEntity> commentList = new ArrayList<>();
 
+//	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+	private List<PostFile> postFiles;
 
 	@Builder
 	public Post(String title, String content, Category category, Long writerId) {
