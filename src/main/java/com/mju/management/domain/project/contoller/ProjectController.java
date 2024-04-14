@@ -1,5 +1,6 @@
 package com.mju.management.domain.project.contoller;
 
+import com.mju.management.domain.post.model.dto.request.RetrieveDetailPostRequestDto;
 import com.mju.management.domain.project.dto.response.GetProjectListResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectResponseDto;
 import com.mju.management.domain.project.service.ProjectService;
@@ -51,6 +52,13 @@ public class ProjectController {
     public CommonResult getProject(@PathVariable Long projectId) {
         GetProjectResponseDto project = projectService.getProject(projectId);
         return responseService.getSingleResult(project);
+    }
+
+    // 프로젝트 별 파일리스트 조회
+    @Operation(summary = "프로젝트 별 파일 리스트 조회")
+    @GetMapping("/{projectId}/files")
+    public CommonResult getProjectFiles(@PathVariable Long projectId) {
+        return responseService.getListResult(projectService.getProjectFiles(projectId));
     }
 
     //프로젝트 수정
