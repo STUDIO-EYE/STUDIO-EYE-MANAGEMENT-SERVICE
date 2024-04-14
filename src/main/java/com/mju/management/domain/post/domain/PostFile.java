@@ -1,5 +1,6 @@
 package com.mju.management.domain.post.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,6 @@ public class PostFile {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @JsonIgnore
     private Post post;
 }

@@ -6,6 +6,7 @@ import com.mju.management.domain.post.model.dto.request.RetrieveDetailPostReques
 import com.mju.management.domain.post.model.dto.request.UpdatePostRequestDto;
 import com.mju.management.global.model.Result.CommonResult;
 import com.mju.management.domain.post.service.PostServiceImpl;
+import com.mju.management.global.model.Result.ListResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -35,15 +36,18 @@ public class PostController {
         return postServiceImpl.createPost(/* user, */ createPostDto.toServiceRequest(), files);
     }
 
-    @Operation(summary = "기획/제작/편집 게시글 상세 조회 API")
+    @Operation(summary = "기획/제작/편집 게시글 상세 - 내용 조회 API")
     @GetMapping
     public CommonResult retrieveDetailPost(/* @AuthenticationPrincipal User user */
             @Valid RetrieveDetailPostRequestDto retrieveDetailPostRequestDto  ){
-        System.out.println("sdfslakfjklafsjlkjflad" + retrieveDetailPostRequestDto);
 
         return postServiceImpl.retrieveDetailPost(/* user, */ retrieveDetailPostRequestDto.toServiceRequest());
     }
-
+    @Operation(summary = "기획/제작/편집 게시글 상세 조회 - 파일 리스트 조회 API")
+    @GetMapping("/files")
+    public CommonResult retrieveDetailPostFiles(@Valid RetrieveDetailPostRequestDto retrieveDetailPostRequestDto  ){
+        return postServiceImpl.retrieveDetailPostFiles(retrieveDetailPostRequestDto.toServiceRequest());
+    }
 //    @ExceptionHandler(MaxUploadSizeExceededException.class)
     @Operation(summary = "기획/제작/편집 게시글 수정 API")
     @PutMapping
