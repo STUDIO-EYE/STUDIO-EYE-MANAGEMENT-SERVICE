@@ -17,6 +17,7 @@ import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Exception.ExceptionList;
 import com.mju.management.global.model.Exception.UnauthorizedAccessException;
 import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.model.Result.ListResult;
 import com.mju.management.global.service.ResponseService;
 import com.mju.management.global.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -96,6 +97,26 @@ public class PostServiceImpl {
         return responseService.getSingleResult(PostDetailResponse.from(post, userService.getUsername(post.getWriterId())));
     }
 
+    @Transactional(readOnly = true)
+    public CommonResult retrieveDetailPostFiles(RetrieveDetailPostRequestServiceDto dto) {
+        Optional<Project> optionalProject = projectRepository.findById(dto.projectId());
+//        if (optionalProject.isEmpty()){
+//            return responseService.getFailResult(INVALID_PROJECT_ID.getCode(), INVALID_PROJECT_ID.getMessage());
+//        }
+        Project project = optionalProject.get();
+
+        // 요청자가 해당 프로젝트의 팀원인지 확인
+        checkMemberAuthorization(project, JwtContextHolder.getUserId());
+
+        Optional<Post> optionalPost = postRepository.findById(dto.postId());
+//        if(optionalPost.isEmpty()){
+//            return responseService.getFailResult(INVALID_POST_ID.getCode(), INVALID_POST_ID.getMessage());
+//        }
+
+        Post post = optionalPost.get();
+        List<PostFile> files = post.getPostFiles();
+        return responseService.getListResult(files);
+    }
     public CommonResult updatePost(UpdatePostRequestServiceDto dto, List<MultipartFile> newFiles ) throws IOException{
         Optional<Project> optionalProject = projectRepository.findById(dto.projectId());
         if (optionalProject.isEmpty()){
