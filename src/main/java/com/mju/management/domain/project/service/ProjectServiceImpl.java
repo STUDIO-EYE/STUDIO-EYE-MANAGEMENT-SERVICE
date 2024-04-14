@@ -1,5 +1,9 @@
 package com.mju.management.domain.project.service;
 
+import com.mju.management.domain.post.domain.Post;
+import com.mju.management.domain.post.domain.PostFile;
+import com.mju.management.domain.post.infrastructure.PostFileRepository;
+import com.mju.management.domain.post.infrastructure.PostRepository;
 import com.mju.management.domain.project.dto.response.GetProjectListResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectUserResponseDto;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,6 +32,8 @@ import java.util.stream.Collectors;
 public class ProjectServiceImpl implements ProjectService{
     private final ProjectRepository projectRepository;
     private final UserServiceImpl userService;
+    private final PostRepository postRepository;
+    private final PostFileRepository postFileRepository;
 
     @Override
     @Transactional
@@ -124,6 +131,22 @@ public class ProjectServiceImpl implements ProjectService{
         checkLeaderAuthorization(project);
         project.finish();
 
+    }
+
+    @Override
+    public List<PostFile> getProjectFiles(Long projectId) {
+        Project project = projectRepository.findByIdWithProjectUserList(projectId)
+                .orElseThrow(()->new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT));
+        if(!project.isLeaderOrMember(JwtContextHolder.getUserId()))
+            throw new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS);
+//        List<GetProjectUserResponseDto> getProjectUserResponseDtoList =
+//                getProjectUserResponseDtoList(project.getProjectUserList());
+        List<Post> posts = postRepository.findByProject(project);
+        List<PostFile> project_files = new ArrayList<>();
+        for(Post post : posts){
+            project_files.addAll(postFileRepository.findByPostId(post.getId()));
+        }
+        return project_files;
     }
 
     public void validateProjectPeriod(CreateProjectRequestDto createProjectRequestDto){

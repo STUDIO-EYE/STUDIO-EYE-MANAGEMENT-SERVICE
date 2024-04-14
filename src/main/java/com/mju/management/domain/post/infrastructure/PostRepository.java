@@ -14,5 +14,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByCategoryAndProject(Category getCategory, Project project);
 
     List<Post> findByCategoryAndProject(Category getCategory, Project project, Pageable pageable);
+    List<Post> findByProject(Project project);
 
 }
