@@ -28,10 +28,18 @@ public class UserTodoController {
 
     // 내 할 일 조회
     @GetMapping
-    @Operation(summary = "내 할 일 조회", description = "내 할 일 조회 api")
+    @Operation(summary = "내 할 일 목록 조회", description = "내 할 일 목록 조회 api")
     public CommonResult showMyToDo() {
         List<UserTodo> userTodoList = userTodoService.getMyTodo(JwtContextHolder.getUserId());
         CommonResult commonResult = responseService.getListResult(userTodoList);
+        return commonResult;
+    }
+
+    @GetMapping("/{userTodoId}")
+    @Operation(summary = "내 할 일 하나 조회", description = "내 할 일 하나 조회 api")
+    public CommonResult showMyToDoOne(@PathVariable Long userTodoId) {
+        UserTodo userTodo = userTodoService.showMyToDoOne(userTodoId);
+        CommonResult commonResult = responseService.getSingleResult(userTodo);
         return commonResult;
     }
 
@@ -46,7 +54,10 @@ public class UserTodoController {
     // 내 할 일 수정
     @PutMapping("/{userTodoId}")
     @Operation(summary = "내 할 일 수정", description = "내 할 일 수정 api")
-    public CommonResult updateMyToDo(@PathVariable Long userTodoId, @RequestBody ToDoRequestDto toDoRequestDto) {
+    public CommonResult updateMyToDo(
+            @PathVariable Long userTodoId,
+            @RequestBody ToDoRequestDto toDoRequestDto
+    ) {
         userTodoService.updateMyToDo(JwtContextHolder.getUserId(), userTodoId, toDoRequestDto);
         return responseService.getSuccessfulResult();
     }

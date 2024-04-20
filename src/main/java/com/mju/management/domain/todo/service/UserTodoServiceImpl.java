@@ -5,6 +5,7 @@ import com.mju.management.domain.todo.infrastructure.UserTodo;
 import com.mju.management.domain.todo.infrastructure.UserTodoRepository;
 import com.mju.management.global.model.Exception.ExceptionList;
 import com.mju.management.global.model.Exception.NonExistentException;
+import com.mju.management.global.model.Exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,16 @@ public class UserTodoServiceImpl implements UserTodoService{
             return allByUserId;
         else
             throw new NonExistentException(ExceptionList.NON_EXISTENT_CHECKLIST);
+    }
+
+    // Description : 내 할 일 하나 조회
+    @Override
+    public UserTodo showMyToDoOne(Long userTodoId) {
+
+        UserTodo userTodo = userTodoRepository.findById(userTodoId)
+                .orElseThrow(() -> new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS));
+        return userTodo;
+
     }
 
     // Description : 내 할 일 생성
@@ -72,4 +83,5 @@ public class UserTodoServiceImpl implements UserTodoService{
         } else
             throw new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT);
     }
+    
 }
