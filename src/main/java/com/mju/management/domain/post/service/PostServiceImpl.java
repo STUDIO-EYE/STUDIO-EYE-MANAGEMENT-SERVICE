@@ -62,17 +62,19 @@ public class PostServiceImpl {
         // 파일 업로드
         List<PostFile> postFiles = new ArrayList<>();
 
-        for (MultipartFile file : files) {
-            String s3key = s3Service.uploadFile(file);
+        if (files != null){
+            for (MultipartFile file : files) {
+                String s3key = s3Service.uploadFile(file);
 
-            postFiles.add(PostFile.builder()
-                    .fileName(file.getOriginalFilename())
-                    .filePath(s3Service.getUrl(s3key))
-                    .s3key(s3key)
-                    .post(post)
-                    .build());
+                postFiles.add(PostFile.builder()
+                        .fileName(file.getOriginalFilename())
+                        .filePath(s3Service.getUrl(s3key))
+                        .s3key(s3key)
+                        .post(post)
+                        .build());
+            }
+            postFileRepository.saveAll(postFiles);
         }
-        postFileRepository.saveAll(postFiles);
 
         return responseService.getSuccessfulResultWithMessage("기획/제작/편집 게시글 작성에 성공하였습니다.");
     }
@@ -146,17 +148,19 @@ public class PostServiceImpl {
             postFileRepository.deleteById(file.getId()); //엔티티 삭제
         }
         // 파일 다시 새로 업로드
-        List<PostFile> postFiles = new ArrayList<>();
-        for (MultipartFile file : newFiles) {
-            String s3key = s3Service.uploadFile(file);
-            postFiles.add(PostFile.builder()
-                    .fileName(file.getOriginalFilename())
-                    .filePath(s3Service.getUrl(s3key))
-                    .s3key(s3key)
-                    .post(post)
-                    .build());
+        if(newFiles!=null){
+            List<PostFile> postFiles = new ArrayList<>();
+            for (MultipartFile file : newFiles) {
+                String s3key = s3Service.uploadFile(file);
+                postFiles.add(PostFile.builder()
+                        .fileName(file.getOriginalFilename())
+                        .filePath(s3Service.getUrl(s3key))
+                        .s3key(s3key)
+                        .post(post)
+                        .build());
+            }
+            postFileRepository.saveAll(postFiles);
         }
-        postFileRepository.saveAll(postFiles);
         return responseService.getSuccessfulResultWithMessage("기획/제작/편집 게시글 수정에 성공하였습니다.");
     }
 
