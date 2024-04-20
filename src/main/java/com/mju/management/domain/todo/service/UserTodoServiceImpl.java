@@ -83,5 +83,20 @@ public class UserTodoServiceImpl implements UserTodoService{
         } else
             throw new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT);
     }
+
+    // Description : 내 할 일 완료
+    @Override
+    @Transactional
+    public void finishMyToDo(Long userId, Long userTodoId) {
+
+        Optional<UserTodo> findUserTodo = userTodoRepository.findByUserTodoIdAndUserId(userTodoId, userId);
+        if (findUserTodo.isPresent()) {
+            UserTodo userTodo = findUserTodo.get();
+            userTodo.finish(userTodo.isChecked());
+
+        } else
+            throw new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT);
+
+    }
     
 }

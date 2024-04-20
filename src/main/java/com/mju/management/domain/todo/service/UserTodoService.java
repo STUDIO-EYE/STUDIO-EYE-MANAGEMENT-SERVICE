@@ -16,4 +16,6 @@ public interface UserTodoService {
     void deleteMyToDo(Long userId, Long userTodoId);
 
     UserTodo showMyToDoOne(Long userTodoId);
+
+    void finishMyToDo(Long userId, Long userTodoId);
 }

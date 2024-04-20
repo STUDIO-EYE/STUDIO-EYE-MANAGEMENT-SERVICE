@@ -70,4 +70,12 @@ public class UserTodoController {
         return responseService.getSuccessfulResult();
     }
 
+    // 내 할 일 완료
+    @PatchMapping("/checking/{userTodoId}")
+    @Operation(summary = "내 할 일 완료 표시", description = "내 할 일 완료 표시 api")
+    public CommonResult finishMyToDo(@PathVariable Long userTodoId) {
+        userTodoService.finishMyToDo(JwtContextHolder.getUserId(), userTodoId);
+        return responseService.getSuccessfulResult();
+    }
+
 }
