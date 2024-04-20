@@ -18,4 +18,6 @@ public interface ToDoService {
     public void updateToDo(Long todoIndex, ToDoRequestDto toDoRequestDto);
 
     public void finishToDo(Long todoIndex);
+
+//    List<ToDoEntity> getMyToDo(Long userId);
 }
