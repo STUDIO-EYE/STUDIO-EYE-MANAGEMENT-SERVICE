@@ -4,6 +4,7 @@ import com.mju.management.domain.post.domain.Post;
 import com.mju.management.domain.post.domain.PostFile;
 import com.mju.management.domain.post.infrastructure.PostFileRepository;
 import com.mju.management.domain.post.infrastructure.PostRepository;
+import com.mju.management.domain.project.dto.reqeust.CreateProjectRequestDto;
 import com.mju.management.domain.project.dto.response.GetProjectListResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectUserResponseDto;
@@ -13,17 +14,18 @@ import com.mju.management.domain.user.service.UserServiceImpl;
 import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Exception.ExceptionList;
 import com.mju.management.global.model.Exception.NonExistentException;
-import com.mju.management.domain.project.dto.reqeust.CreateProjectRequestDto;
 import com.mju.management.global.model.Exception.StartDateAfterEndDateException;
 import com.mju.management.global.model.Exception.UnauthorizedAccessException;
+import com.mju.management.global.service.S3Service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,7 @@ public class ProjectServiceImpl implements ProjectService{
     private final UserServiceImpl userService;
     private final PostRepository postRepository;
     private final PostFileRepository postFileRepository;
+    private final S3Service s3Service;
 
     @Override
     @Transactional
@@ -141,12 +144,32 @@ public class ProjectServiceImpl implements ProjectService{
             throw new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS);
 //        List<GetProjectUserResponseDto> getProjectUserResponseDtoList =
 //                getProjectUserResponseDtoList(project.getProjectUserList());
-        List<Post> posts = postRepository.findByProject(project);
-        List<PostFile> project_files = new ArrayList<>();
-        for(Post post : posts){
-            project_files.addAll(postFileRepository.findByPostId(post.getId()));
-        }
+        List<PostFile> project_files = postFileRepository.findByProjectId(projectId);
         return project_files;
+    }
+
+    @Override
+    public void createProjectFiles(Long projectId, List<MultipartFile> files) throws IOException {
+        Project project = projectRepository.findByIdWithProjectUserList(projectId)
+                .orElseThrow(()->new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT));
+        if(!project.isLeaderOrMember(JwtContextHolder.getUserId()))
+            throw new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS);
+        // 파일 업로드
+        List<PostFile> projectFiles = new ArrayList<>();
+
+        if (files != null) {
+            for (MultipartFile file : files) {
+                String s3key = s3Service.uploadFile(file);
+
+                projectFiles.add(PostFile.builder()
+                        .fileName(file.getOriginalFilename())
+                        .filePath(s3Service.getUrl(s3key))
+                        .s3key(s3key)
+                        .project(project)
+                        .build());
+            }
+            postFileRepository.saveAll(projectFiles);
+        }
     }
 
     public void validateProjectPeriod(CreateProjectRequestDto createProjectRequestDto){

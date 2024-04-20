@@ -4,7 +4,9 @@ import com.mju.management.domain.post.domain.PostFile;
 import com.mju.management.domain.project.dto.reqeust.CreateProjectRequestDto;
 import com.mju.management.domain.project.dto.response.GetProjectListResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectResponseDto;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProjectService {
@@ -18,4 +20,5 @@ public interface ProjectService {
     void finishProject(Long projectIndex);
 
     List<PostFile> getProjectFiles(Long projectId);
+    void createProjectFiles(Long projectId, List<MultipartFile> files) throws IOException;
 }
