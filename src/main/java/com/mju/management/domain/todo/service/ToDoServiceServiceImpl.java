@@ -62,6 +62,18 @@ public class ToDoServiceServiceImpl implements ToDoService {
         }
     }
 
+    // 내 할 일 조회
+//    @Override
+//    @Transactional
+//    public List<ToDoEntity> getMyToDo(Long userId) {
+//
+//        List<ToDoEntity> allByUserId = toDoJpaRepository.findAllByUserId(userId);
+//        if (!allByUserId.isEmpty())
+//            return allByUserId;
+//        else
+//            throw new NonExistentException(ExceptionList.NON_EXISTENT_CHECKLIST);
+//    }
+
     @Override
     @Transactional
     public void deleteToDo(Long todoIndex) {
@@ -119,4 +131,6 @@ public class ToDoServiceServiceImpl implements ToDoService {
             throw new NonExistentException(ExceptionList.NON_EXISTENT_CHECKLIST);
         }
     }
+
+
 }
