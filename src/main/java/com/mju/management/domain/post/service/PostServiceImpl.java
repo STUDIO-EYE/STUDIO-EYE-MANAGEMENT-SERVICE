@@ -71,6 +71,7 @@ public class PostServiceImpl {
                         .filePath(s3Service.getUrl(s3key))
                         .s3key(s3key)
                         .post(post)
+                        .project(project)
                         .build());
             }
             postFileRepository.saveAll(postFiles);
@@ -157,6 +158,7 @@ public class PostServiceImpl {
                         .filePath(s3Service.getUrl(s3key))
                         .s3key(s3key)
                         .post(post)
+                        .project(project)
                         .build());
             }
             postFileRepository.saveAll(postFiles);

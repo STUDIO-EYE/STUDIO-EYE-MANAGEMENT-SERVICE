@@ -12,7 +12,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "프로젝트 CRUD API", description = "프로젝트 CRUD API")
@@ -54,6 +56,13 @@ public class ProjectController {
         return responseService.getSingleResult(project);
     }
 
+    @Operation(summary = "프로젝트 파일 생성")
+    @PostMapping("/{projectId}/files")
+    public CommonResult uploadProjectFiles(@PathVariable Long projectId,
+                                           @ModelAttribute List<MultipartFile> files) throws IOException {
+        projectService.createProjectFiles(projectId, files);
+        return responseService.getSuccessfulResult();
+    }
     // 프로젝트 별 파일리스트 조회
     @Operation(summary = "프로젝트 별 파일 리스트 조회")
     @GetMapping("/{projectId}/files")

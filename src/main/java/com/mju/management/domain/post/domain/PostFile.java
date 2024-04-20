@@ -1,6 +1,8 @@
 package com.mju.management.domain.post.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mju.management.domain.project.infrastructure.Project;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +26,14 @@ public class PostFile {
 
     private String s3key;
 
+    @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     @JsonIgnore
     private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    private Project project;
 }

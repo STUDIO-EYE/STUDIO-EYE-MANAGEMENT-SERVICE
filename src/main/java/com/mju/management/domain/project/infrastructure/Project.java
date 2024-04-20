@@ -1,6 +1,7 @@
 package com.mju.management.domain.project.infrastructure;
 
 import com.mju.management.domain.post.domain.Post;
+import com.mju.management.domain.post.domain.PostFile;
 import com.mju.management.domain.project.dto.reqeust.CreateProjectRequestDto;
 import com.mju.management.domain.schedule.infrastructure.Schedule;
 import com.mju.management.domain.todo.infrastructure.ToDoEntity;
@@ -55,6 +56,9 @@ public class Project {
     // Post(기획, 제작, 편집 게시글)와 연관 관계
     @OneToMany(mappedBy = "project", cascade = ALL, orphanRemoval = true)
     private List<Post> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project", cascade = ALL, orphanRemoval = true)
+    private List<PostFile> postFileList = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", cascade = ALL, orphanRemoval = true)
     private List<Schedule> scheduleList = new ArrayList<>();
