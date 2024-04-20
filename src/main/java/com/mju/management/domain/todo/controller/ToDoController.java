@@ -3,6 +3,7 @@ package com.mju.management.domain.todo.controller;
 import com.mju.management.domain.todo.dto.ToDoRequestDto;
 import com.mju.management.domain.todo.infrastructure.ToDoEntity;
 import com.mju.management.domain.todo.service.ToDoService;
+import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +44,16 @@ public class ToDoController {
         CommonResult commonResult = responseService.getListResult(toDoEntity);
         return commonResult;
     }
+
+//    // 내 할 일 조회
+//    @GetMapping("/my/todo")
+//    @Operation(summary = "내 할 일 조회", description = "내 할 일 조회 api")
+//    public CommonResult showMyToDo() {
+//        List<ToDoEntity> toDoEntity = toDoService.getMyToDo(JwtContextHolder.getUserId());
+//        CommonResult commonResult = responseService.getListResult(toDoEntity);
+//        return commonResult;
+//    }
+
     //체크박스 하나만 선택
     @GetMapping("/todo/{todoIndex}")
     @Operation(summary = "할일 선택 조회", description = "할일 선택 조회 api")

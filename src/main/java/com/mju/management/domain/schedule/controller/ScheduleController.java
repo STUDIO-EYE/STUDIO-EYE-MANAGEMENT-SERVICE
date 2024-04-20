@@ -67,4 +67,13 @@ public class ScheduleController {
         scheduleService.deleteSchedule(scheduleId);
         return responseService.getSuccessfulResult();
     }
+
+    //일정 완료
+//    @Operation(summary = "일정 완료하기", description = "일정을 완료하는 API")
+//    @ResponseStatus(OK)
+//    @DeleteMapping("/schedules/finish/{scheduleId}")
+//    public CommonResult finishSchedule(@PathVariable Long scheduleId) {
+//        scheduleService.finishSchedule(scheduleId);
+//        return responseService.getSuccessfulResult();
+//    }
 }

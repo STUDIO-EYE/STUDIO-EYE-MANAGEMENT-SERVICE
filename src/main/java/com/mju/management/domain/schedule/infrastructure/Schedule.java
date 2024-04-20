@@ -36,6 +36,9 @@ public class Schedule {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
+    @Column(name = "is_checked")
+    private boolean isChecked;
+
     public void update(CreateScheduleRequestDto updateScheduleRequestDto) {
         this.content = updateScheduleRequestDto.getContent();
         this.startDate = updateScheduleRequestDto.readStartDateAsLocalDateType();
