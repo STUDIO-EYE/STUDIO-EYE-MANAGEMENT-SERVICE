@@ -1,6 +1,5 @@
 package com.mju.management.domain.post.infrastructure;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
