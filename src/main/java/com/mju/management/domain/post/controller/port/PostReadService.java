@@ -1,5 +1,6 @@
 package com.mju.management.domain.post.controller.port;
 
+import com.mju.management.domain.post.controller.response.MyPostRes;
 import com.mju.management.domain.post.controller.response.PostResponse;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface PostReadService {
 
     List<PostResponse> readThree(Long projectId, Long userId, String category);
 
+    List<MyPostRes> readAllMyPosts(Long projectId, Long userId, String username);
 }

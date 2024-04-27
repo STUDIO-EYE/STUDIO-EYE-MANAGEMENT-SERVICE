@@ -1,6 +1,7 @@
 package com.mju.management.domain.post.controller;
 
 import com.mju.management.domain.post.controller.port.PostReadService;
+import com.mju.management.domain.post.controller.response.MyPostRes;
 import com.mju.management.domain.post.controller.response.PostResponse;
 import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Result.CommonResult;
@@ -42,5 +43,15 @@ public class PostReadController {
     }
 
     // 검색 + 페이징
+
+    // 내가 쓴 게시글 조회
+    @Operation(summary = "내가 쓴 기획/제작/편집 게시글 조회 API (category : PLANNING, PRODUCTION, EDITING)")
+    @GetMapping("/{projectId}/myPosts")
+    public CommonResult readAllMyPosts(@PathVariable Long projectId){
+        Long userId = JwtContextHolder.getUserId();
+        String username = JwtContextHolder.getUsername();
+        List<MyPostRes> responseList = postReadService.readAllMyPosts(projectId, userId, username);
+        return responseService.getListResult(responseList);
+    }
 
 }
