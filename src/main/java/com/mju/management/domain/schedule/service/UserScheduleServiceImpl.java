@@ -1,6 +1,7 @@
 package com.mju.management.domain.schedule.service;
 
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
+import com.mju.management.domain.schedule.dto.reqeust.ScheduleWithDateReq;
 import com.mju.management.domain.schedule.dto.response.GetUserScheduleRes;
 import com.mju.management.domain.schedule.infrastructure.UserSchedule;
 import com.mju.management.domain.schedule.infrastructure.UserScheduleRepository;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +45,30 @@ public class UserScheduleServiceImpl implements UserScheduleService{
             return allByUserId;
         else
             throw new NonExistentException(ExceptionList.NON_EXISTENT_CHECKLIST);
+    }
+
+    // 날짜로 조회
+    @Override
+    public List<UserSchedule> getMyScheduleWithDate(Long userId, ScheduleWithDateReq scheduleWithDateReq) {
+
+        List<UserSchedule> allByUserId = userScheduleRepository.findAllByUserId(userId);
+        LocalDate date = scheduleWithDateReq.readDateAsLocalDateType();
+        List<UserSchedule> userScheduleList = new ArrayList<>();
+
+        for (UserSchedule userSchedule : allByUserId) {
+            LocalDate startDate = userSchedule.getStartDate().minusDays(1);
+            LocalDate endDate = userSchedule.getEndDate().plusDays(1);
+            if (date.isAfter(startDate) && date.isBefore(endDate))
+                userScheduleList.add(userSchedule);
+
+        }
+
+        if (!userScheduleList.isEmpty())
+            return userScheduleList;
+        else
+            throw new NonExistentException(ExceptionList.NON_EXISTENT_CHECKLIST);
+
+
     }
 
     @Override

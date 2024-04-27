@@ -1,6 +1,7 @@
 package com.mju.management.domain.schedule.service;
 
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
+import com.mju.management.domain.schedule.dto.reqeust.ScheduleWithDateReq;
 import com.mju.management.domain.schedule.dto.response.GetUserScheduleRes;
 import com.mju.management.domain.schedule.infrastructure.UserSchedule;
 
@@ -16,4 +17,6 @@ public interface UserScheduleService {
     void deleteMyToDo(Long userId, Long userScheduleId);
 
     GetUserScheduleRes getMyScheduleOne(Long userScheduleId);
+
+    List<UserSchedule> getMyScheduleWithDate(Long userId, ScheduleWithDateReq scheduleWithDateReq);
 }
