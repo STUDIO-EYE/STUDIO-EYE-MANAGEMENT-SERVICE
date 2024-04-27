@@ -1,6 +1,7 @@
 package com.mju.management.domain.post.service;
 
 import com.mju.management.domain.post.controller.port.PostReadService;
+import com.mju.management.domain.post.controller.response.MyPostRes;
 import com.mju.management.domain.post.controller.response.PostResponse;
 import com.mju.management.domain.post.domain.Post;
 import com.mju.management.domain.post.infrastructure.Category;
@@ -67,6 +68,24 @@ public class PostReadServiceImpl implements PostReadService {
             postResponseList.add(PostResponse.from(post, userService.getUsername(post.getWriterId())));
         });
         return postResponseList;
+    }
+
+    @Override
+    public List<MyPostRes> readAllMyPosts(Long projectId, Long userId, String username) {
+
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(()-> new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT));
+
+        // 요청자가 해당 프로젝트의 팀원인지 확인
+        checkMemberAuthorization(project, userId);
+
+        List<Post> postList = postRepository.findByWriterIdAndProject(userId, project);
+        List<MyPostRes> myPostResList = new ArrayList<>();
+        for (Post post : postList) {
+            MyPostRes myPostRes = MyPostRes.from(post, username);
+            myPostResList.add(myPostRes);
+        }
+        return myPostResList;
     }
 
     private Category getCategory(String category) {

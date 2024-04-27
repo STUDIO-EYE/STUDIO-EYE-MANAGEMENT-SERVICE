@@ -1,6 +1,7 @@
 package com.mju.management.domain.schedule.controller;
 
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
+import com.mju.management.domain.schedule.dto.reqeust.ScheduleWithDateReq;
 import com.mju.management.domain.schedule.dto.response.GetScheduleResponseDto;
 import com.mju.management.domain.schedule.dto.response.GetUserScheduleRes;
 import com.mju.management.domain.schedule.infrastructure.UserSchedule;
@@ -52,6 +53,15 @@ public class UserScheduleController {
     @GetMapping
     public CommonResult getMySchedule() {
         List<UserSchedule> userScheduleList = userScheduleService.getMySchedule(JwtContextHolder.getUserId());
+        return responseService.getListResult(userScheduleList);
+    }
+
+    // 특정 날짜의 내 일정 목록 조회
+    @Operation(summary = "특정 날짜의 내 일정 목록 조회", description = "특정 날짜의 내 일정 목록 조회 API")
+    @ResponseStatus(OK)
+    @GetMapping("/date")
+    public CommonResult getMyScheduleWithDate(@RequestBody ScheduleWithDateReq scheduleWithDateReq) {
+        List<UserSchedule> userScheduleList = userScheduleService.getMyScheduleWithDate(JwtContextHolder.getUserId(), scheduleWithDateReq);
         return responseService.getListResult(userScheduleList);
     }
 
