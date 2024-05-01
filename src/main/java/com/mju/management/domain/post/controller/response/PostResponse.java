@@ -25,6 +25,9 @@ public class PostResponse {
     @Schema(description = "게시글 제목")
     private String title;
 
+    @Schema(description = "작성자ID")
+    private Long writerId;
+
     @Schema(description = "작성자")
     private String userName;
 
@@ -40,12 +43,14 @@ public class PostResponse {
     @Schema(description = "수정일")
     private LocalDateTime updatedAt;
 
-    public static PostResponse from(Post post, String userName){
+
+    public static PostResponse from(Post post, Long writerId, String userName){
 
         return PostResponse.builder()
                 .id(post.getId())
 //                .status()
                 .title(post.getTitle())
+                .writerId(writerId)
                 .userName(userName)
                 .startDate(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss")))
                 .commentSum(post.getCommentList().size())

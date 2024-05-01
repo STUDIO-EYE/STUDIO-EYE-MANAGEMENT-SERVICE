@@ -45,7 +45,8 @@ public class PostReadServiceImpl implements PostReadService {
         List<Post> postList = postRepository.findByCategoryAndProject(getCategory, project);
         List<PostResponse> postResponseList = new ArrayList<>();
         postList.forEach(post->{
-            postResponseList.add(PostResponse.from(post, userService.getUsername(post.getWriterId())));
+            postResponseList.add(PostResponse.from(post,
+                    post.getWriterId(), userService.getUsername(post.getWriterId())));
         });
         return postResponseList;
     }
@@ -65,7 +66,8 @@ public class PostReadServiceImpl implements PostReadService {
         List<Post> postList =  postRepository.findByCategoryAndProject(getCategory,project, pageable);
         List<PostResponse> postResponseList = new ArrayList<>();
         postList.forEach(post->{
-            postResponseList.add(PostResponse.from(post, userService.getUsername(post.getWriterId())));
+            postResponseList.add(PostResponse.from(post, post.getWriterId(),
+                    userService.getUsername(post.getWriterId())));
         });
         return postResponseList;
     }
