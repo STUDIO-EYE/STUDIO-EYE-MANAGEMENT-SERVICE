@@ -97,7 +97,8 @@ public class PostServiceImpl {
         }
 
         Post post = optionalPost.get();
-        return responseService.getSingleResult(PostDetailResponse.from(post, userService.getUsername(post.getWriterId())));
+        return responseService.getSingleResult(PostDetailResponse.from(post,
+                post.getWriterId(), userService.getUsername(post.getWriterId())));
     }
 
     @Transactional(readOnly = true)
