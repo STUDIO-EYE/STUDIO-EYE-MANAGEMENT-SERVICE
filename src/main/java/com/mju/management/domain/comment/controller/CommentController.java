@@ -47,9 +47,7 @@ public class CommentController {
         List<Comment> comments = commentService.read(postId);
 
         List<CommentResponse> commentResponses = new ArrayList<>();
-        comments.forEach(comment -> {
-            commentResponses.add(CommentResponse.from(comment, getName(comment.getWriteId())));
-        });
+        comments.forEach(comment -> commentResponses.add(CommentResponse.from(comment, getName(comment.getWriteId()))));
         return responseService.getSingleResult(commentResponses);
     }
 

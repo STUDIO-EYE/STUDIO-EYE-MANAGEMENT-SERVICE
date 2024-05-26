@@ -1,6 +1,5 @@
 package com.mju.management.domain.comment.controller.port;
 
-import com.mju.management.domain.comment.controller.response.CommentResponse;
 import com.mju.management.domain.comment.domain.Comment;
 import com.mju.management.domain.comment.domain.CommentCreate;
 import com.mju.management.domain.comment.domain.CommentUpdate;

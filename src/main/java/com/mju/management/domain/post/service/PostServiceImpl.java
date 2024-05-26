@@ -17,7 +17,6 @@ import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Exception.ExceptionList;
 import com.mju.management.global.model.Exception.UnauthorizedAccessException;
 import com.mju.management.global.model.Result.CommonResult;
-import com.mju.management.global.model.Result.ListResult;
 import com.mju.management.global.service.ResponseService;
 import com.mju.management.global.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -104,18 +103,18 @@ public class PostServiceImpl {
     @Transactional(readOnly = true)
     public CommonResult retrieveDetailPostFiles(RetrieveDetailPostRequestServiceDto dto) {
         Optional<Project> optionalProject = projectRepository.findById(dto.projectId());
-//        if (optionalProject.isEmpty()){
-//            return responseService.getFailResult(INVALID_PROJECT_ID.getCode(), INVALID_PROJECT_ID.getMessage());
-//        }
+        if (optionalProject.isEmpty()){
+            return responseService.getFailResult(INVALID_PROJECT_ID.getCode(), INVALID_PROJECT_ID.getMessage());
+        }
         Project project = optionalProject.get();
 
         // 요청자가 해당 프로젝트의 팀원인지 확인
         checkMemberAuthorization(project, JwtContextHolder.getUserId());
 
         Optional<Post> optionalPost = postRepository.findById(dto.postId());
-//        if(optionalPost.isEmpty()){
-//            return responseService.getFailResult(INVALID_POST_ID.getCode(), INVALID_POST_ID.getMessage());
-//        }
+        if(optionalPost.isEmpty()){
+            return responseService.getFailResult(INVALID_POST_ID.getCode(), INVALID_POST_ID.getMessage());
+        }
 
         Post post = optionalPost.get();
         List<PostFile> files = post.getPostFiles();
@@ -138,7 +137,7 @@ public class PostServiceImpl {
         }
 
         Post post = optionalPost.get();
-        if(post.getWriterId() != userId){
+        if(!post.getWriterId().equals(userId)){
              return responseService.getFailResult(NO_PERMISSION_TO_EDIT_POST.getCode(), NO_PERMISSION_TO_EDIT_POST.getMessage());
         }
 
@@ -184,7 +183,7 @@ public class PostServiceImpl {
         }
 
         Post post = optionalPost.get();
-        if(post.getWriterId() != userId){
+        if(!post.getWriterId().equals(userId)){
             return responseService.getFailResult(NO_PERMISSION_TO_EDIT_POST.getCode(), NO_PERMISSION_TO_EDIT_POST.getMessage());
         }
 

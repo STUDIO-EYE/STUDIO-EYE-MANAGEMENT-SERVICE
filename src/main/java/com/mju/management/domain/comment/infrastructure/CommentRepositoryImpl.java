@@ -38,8 +38,4 @@ public class CommentRepositoryImpl implements CommentRepository {
         }
     }
 
-
-    public List<Comment> findByPost(Post post){
-        return null;
-    }
 }

@@ -3,11 +3,11 @@ package com.mju.management.domain.todo.controller;
 import com.mju.management.domain.todo.dto.ToDoRequestDto;
 import com.mju.management.domain.todo.infrastructure.ToDoEntity;
 import com.mju.management.domain.todo.service.ToDoService;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +15,12 @@ import java.util.List;
 @Tag(name = "체크리스트 CRUD API", description = "체크리스트(할일) 관련 API")
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class ToDoController {
-    @Autowired
-    ToDoService toDoService;
-    @Autowired
-    ResponseService responseService;
+
+    private final ToDoService toDoService;
+    private final ResponseService responseService;
 
     @GetMapping("/todo/ping")
     @Operation(summary = "Ping 테스트", description = "서버 피드백 확인용")
@@ -41,26 +41,15 @@ public class ToDoController {
     @Operation(summary = "할일 조회", description = "할일 조회 api")
     public CommonResult showToDo(@PathVariable Long projectId) {
         List<ToDoEntity> toDoEntity = toDoService.getToDo(projectId);
-        CommonResult commonResult = responseService.getListResult(toDoEntity);
-        return commonResult;
+        return responseService.getListResult(toDoEntity);
     }
-
-//    // 내 할 일 조회
-//    @GetMapping("/my/todo")
-//    @Operation(summary = "내 할 일 조회", description = "내 할 일 조회 api")
-//    public CommonResult showMyToDo() {
-//        List<ToDoEntity> toDoEntity = toDoService.getMyToDo(JwtContextHolder.getUserId());
-//        CommonResult commonResult = responseService.getListResult(toDoEntity);
-//        return commonResult;
-//    }
 
     //체크박스 하나만 선택
     @GetMapping("/todo/{todoIndex}")
     @Operation(summary = "할일 선택 조회", description = "할일 선택 조회 api")
     public CommonResult showToDoOne(@PathVariable Long todoIndex) {
         ToDoEntity toDoEntity = toDoService.showToDoOne(todoIndex);
-        CommonResult commonResult = responseService.getSingleResult(toDoEntity);
-        return commonResult;
+        return responseService.getSingleResult(toDoEntity);
     }
     //체크박스 수정
     @PutMapping("/todo/{todoIndex}")

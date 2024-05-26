@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,7 +35,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment create(Long postId, CommentCreate commentCreate) {
-        Post post = postRepository.findById(postId).get();
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다."));
 
         // 요청자가 해당 프로젝트의 팀원인지 확인
         checkMemberAuthorization(post.getProject(), JwtContextHolder.getUserId());
@@ -45,15 +47,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> read(Long postId) {
-        Post post = postRepository.findById(postId).get();
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다."));
 
         // 요청자가 해당 프로젝트의 팀원인지 확인
         checkMemberAuthorization(post.getProject(), JwtContextHolder.getUserId());
 
         List<Comment> comments = new ArrayList<>();
-        post.getCommentList().forEach(commentEntity->{
-            comments.add(commentEntity.toModel());
-        });
+        post.getCommentList().forEach(commentEntity-> comments.add(commentEntity.toModel()));
         return comments;
     }
 

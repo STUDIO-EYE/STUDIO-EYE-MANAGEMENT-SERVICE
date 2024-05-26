@@ -1,16 +1,14 @@
 package com.mju.management.domain.todo.controller;
 
 import com.mju.management.domain.todo.dto.ToDoRequestDto;
-import com.mju.management.domain.todo.infrastructure.ToDoEntity;
 import com.mju.management.domain.todo.infrastructure.UserTodo;
-import com.mju.management.domain.todo.service.ToDoService;
 import com.mju.management.domain.todo.service.UserTodoService;
 import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,29 +16,27 @@ import java.util.List;
 @Tag(name = "유저의 체크리스트 CRUD API", description = "유저의 체크리스트(할일) 관련 API")
 @RestController
 @RequestMapping("/api/userTodo")
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class UserTodoController {
 
-    @Autowired
-    UserTodoService userTodoService;
-    @Autowired
-    ResponseService responseService;
+    private final UserTodoService userTodoService;
+    private final ResponseService responseService;
 
     // 내 할 일 조회
     @GetMapping
     @Operation(summary = "내 할 일 목록 조회", description = "내 할 일 목록 조회 api")
     public CommonResult showMyToDo() {
         List<UserTodo> userTodoList = userTodoService.getMyTodo(JwtContextHolder.getUserId());
-        CommonResult commonResult = responseService.getListResult(userTodoList);
-        return commonResult;
+        return responseService.getListResult(userTodoList);
+
     }
 
     @GetMapping("/{userTodoId}")
     @Operation(summary = "내 할 일 하나 조회", description = "내 할 일 하나 조회 api")
     public CommonResult showMyToDoOne(@PathVariable Long userTodoId) {
         UserTodo userTodo = userTodoService.showMyToDoOne(userTodoId);
-        CommonResult commonResult = responseService.getSingleResult(userTodo);
-        return commonResult;
+        return responseService.getSingleResult(userTodo);
     }
 
     // 내 할 일 생성

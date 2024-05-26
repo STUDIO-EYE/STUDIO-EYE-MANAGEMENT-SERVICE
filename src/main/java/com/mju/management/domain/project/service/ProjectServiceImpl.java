@@ -71,7 +71,7 @@ public class ProjectServiceImpl implements ProjectService{
     public List<GetProjectListResponseDto> getProjectList() {
         List<GetProjectListResponseDto> projectList = projectRepository.findAll()
                 .stream().map(GetProjectListResponseDto::from)
-                .collect(Collectors.toList());
+                .toList();
         if (projectList.isEmpty()) throw new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT);
         return projectList;
     }
@@ -80,7 +80,7 @@ public class ProjectServiceImpl implements ProjectService{
     public List<GetProjectListResponseDto> getMyProjectList() {
         List<GetProjectListResponseDto> myProjectList = projectRepository.findAllByUserId(JwtContextHolder.getUserId())
                 .stream().map(GetProjectListResponseDto::from)
-                .collect(Collectors.toList());
+                .toList();
         if (myProjectList.isEmpty()) throw new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT);
         return myProjectList;
     }
@@ -142,10 +142,7 @@ public class ProjectServiceImpl implements ProjectService{
                 .orElseThrow(()->new NonExistentException(ExceptionList.NON_EXISTENT_PROJECT));
         if(!project.isLeaderOrMember(JwtContextHolder.getUserId()))
             throw new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS);
-//        List<GetProjectUserResponseDto> getProjectUserResponseDtoList =
-//                getProjectUserResponseDtoList(project.getProjectUserList());
-        List<PostFile> project_files = postFileRepository.findByProjectId(projectId);
-        return project_files;
+        return postFileRepository.findByProjectId(projectId);
     }
 
     @Override

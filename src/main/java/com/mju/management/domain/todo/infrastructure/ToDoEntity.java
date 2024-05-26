@@ -2,7 +2,6 @@ package com.mju.management.domain.todo.infrastructure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mju.management.domain.project.infrastructure.Project;
-import com.mju.management.domain.project.infrastructure.ProjectUser;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "todo")
 public class ToDoEntity {
     @Builder
-    public ToDoEntity(/*String userId, */String todoContent, boolean todoEmergency,Project project){
-//        this.userId = user_id;
+    public ToDoEntity(String todoContent, boolean todoEmergency,Project project){
         this.todoContent = todoContent;
         this.todoEmergency = todoEmergency;
         this.project = project;

@@ -1,7 +1,5 @@
 package com.mju.management.domain.schedule.service;
 
-
-
 import com.mju.management.domain.project.infrastructure.Project;
 import com.mju.management.domain.project.infrastructure.ProjectRepository;
 import com.mju.management.domain.project.infrastructure.ProjectUserRepository;
@@ -44,8 +42,8 @@ public class ScheduleServiceImpl implements ScheduleService{
                 .orElseThrow(() -> new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS));
         List<GetScheduleResponseDto> scheduleList = project.getScheduleList()
                 .stream()
-                .map(schedule -> GetScheduleResponseDto.from(schedule))
-                .collect(Collectors.toList());
+                .map(GetScheduleResponseDto::from)
+                .toList();
         if (scheduleList.isEmpty()) throw new NonExistentException(ExceptionList.NON_EXISTENT_SCHEDULELIST);
         return scheduleList;
     }

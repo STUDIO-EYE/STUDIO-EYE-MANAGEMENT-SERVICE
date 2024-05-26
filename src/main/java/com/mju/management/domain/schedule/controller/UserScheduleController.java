@@ -2,7 +2,6 @@ package com.mju.management.domain.schedule.controller;
 
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
 import com.mju.management.domain.schedule.dto.reqeust.ScheduleWithDateReq;
-import com.mju.management.domain.schedule.dto.response.GetScheduleResponseDto;
 import com.mju.management.domain.schedule.dto.response.GetUserScheduleRes;
 import com.mju.management.domain.schedule.infrastructure.UserSchedule;
 import com.mju.management.domain.schedule.service.UserScheduleService;
