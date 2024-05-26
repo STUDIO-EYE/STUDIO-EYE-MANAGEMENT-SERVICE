@@ -102,21 +102,21 @@ public class Project {
 
     public boolean isLeader(Long userId) {
         for(ProjectUser projectUser : projectUserList)
-            if(projectUser.getUserId()==userId && projectUser.getRole()==Role.LEADER)
+            if(projectUser.getUserId().equals(userId) && projectUser.getRole()==Role.LEADER)
                 return true;
         return  false;
     }
 
     public boolean isMember(Long userId) {
         for(ProjectUser projectUser : projectUserList)
-            if(projectUser.getUserId()==userId && projectUser.getRole()==Role.MEMBER)
+            if(projectUser.getUserId().equals(userId) && projectUser.getRole()==Role.MEMBER)
                 return true;
         return  false;
     }
 
     public boolean isLeaderOrMember(Long userId){
         for(ProjectUser projectUser : projectUserList)
-            if(projectUser.getUserId() == userId) return true;
+            if(projectUser.getUserId().equals(userId)) return true;
         return  false;
     }
 }

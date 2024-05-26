@@ -9,7 +9,6 @@ import com.mju.management.domain.post.infrastructure.PostRepository;
 import com.mju.management.domain.project.infrastructure.Project;
 import com.mju.management.domain.project.infrastructure.ProjectRepository;
 import com.mju.management.domain.user.service.UserServiceImpl;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
 import com.mju.management.global.model.Exception.ExceptionList;
 import com.mju.management.global.model.Exception.NonExistentException;
 import com.mju.management.global.model.Exception.UnauthorizedAccessException;
@@ -44,10 +43,7 @@ public class PostReadServiceImpl implements PostReadService {
 
         List<Post> postList = postRepository.findByCategoryAndProject(getCategory, project);
         List<PostResponse> postResponseList = new ArrayList<>();
-        postList.forEach(post->{
-            postResponseList.add(PostResponse.from(post,
-                    post.getWriterId(), userService.getUsername(post.getWriterId())));
-        });
+        postList.forEach(post-> postResponseList.add(PostResponse.from(post, post.getWriterId(), userService.getUsername(post.getWriterId()))));
         return postResponseList;
     }
 
@@ -65,10 +61,7 @@ public class PostReadServiceImpl implements PostReadService {
         Pageable pageable = PageRequest.of(0, 3, sort); // 페이지 번호 0부터 3개의 결과를 가져옴
         List<Post> postList =  postRepository.findByCategoryAndProject(getCategory,project, pageable);
         List<PostResponse> postResponseList = new ArrayList<>();
-        postList.forEach(post->{
-            postResponseList.add(PostResponse.from(post, post.getWriterId(),
-                    userService.getUsername(post.getWriterId())));
-        });
+        postList.forEach(post-> postResponseList.add(PostResponse.from(post, post.getWriterId(), userService.getUsername(post.getWriterId()))));
         return postResponseList;
     }
 
@@ -103,7 +96,7 @@ public class PostReadServiceImpl implements PostReadService {
                 getCategory = Category.EDITING;
                 break;
             default:
-                new NonExistentException(ExceptionList.NON_EXISTENT_CATEGORY);
+                throw new NonExistentException(ExceptionList.NON_EXISTENT_CATEGORY);
         }
         return getCategory;
     }

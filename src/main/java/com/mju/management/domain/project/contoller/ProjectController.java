@@ -1,6 +1,5 @@
 package com.mju.management.domain.project.contoller;
 
-import com.mju.management.domain.post.model.dto.request.RetrieveDetailPostRequestDto;
 import com.mju.management.domain.project.dto.response.GetProjectListResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectResponseDto;
 import com.mju.management.domain.project.service.ProjectService;

@@ -1,9 +1,7 @@
 package com.mju.management.domain.schedule.service;
 
-
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
 import com.mju.management.domain.schedule.dto.response.GetScheduleResponseDto;
-import com.mju.management.domain.schedule.infrastructure.Schedule;
 
 import java.util.List;
 

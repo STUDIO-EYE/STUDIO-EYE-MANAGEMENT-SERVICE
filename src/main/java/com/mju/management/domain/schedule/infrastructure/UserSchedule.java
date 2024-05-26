@@ -1,6 +1,5 @@
 package com.mju.management.domain.schedule.infrastructure;
 
-import com.mju.management.domain.project.infrastructure.Project;
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;

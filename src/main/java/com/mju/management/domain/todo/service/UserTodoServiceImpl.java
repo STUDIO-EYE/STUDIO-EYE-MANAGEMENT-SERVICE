@@ -34,10 +34,8 @@ public class UserTodoServiceImpl implements UserTodoService{
     @Override
     public UserTodo showMyToDoOne(Long userTodoId) {
 
-        UserTodo userTodo = userTodoRepository.findById(userTodoId)
+        return userTodoRepository.findById(userTodoId)
                 .orElseThrow(() -> new UnauthorizedAccessException(ExceptionList.UNAUTHORIZED_ACCESS));
-        return userTodo;
-
     }
 
     // Description : 내 할 일 생성

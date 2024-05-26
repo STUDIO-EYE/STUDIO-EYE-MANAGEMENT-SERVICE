@@ -2,13 +2,10 @@ package com.mju.management.domain.post.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import com.mju.management.domain.comment.domain.Comment;
 import com.mju.management.domain.comment.infrastructure.CommentEntity;
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -44,7 +41,7 @@ public class Post {
 	@Enumerated(EnumType.STRING)
 	private Category category;
 
-	private int reply_cnt = 0;
+	private int replyCnt = 0;
 
 	private Long writerId;
 
@@ -52,7 +49,6 @@ public class Post {
 	@Column(nullable = true, updatable = true)
 	private LocalDateTime updatedAt;
 
-	// TODO: 프로젝트의 팀원일때만, 게시글을 작성할 수 있도록 확인
 	@ManyToOne
 	@JoinColumn(name = "project_index")
 	@JsonIgnore
