@@ -1,4 +1,4 @@
-package com.mju.management.global.config.jwtInterceptor;
+package com.mju.management.global.config.jwtinterceptor;
 
 public class JwtContextHolder {
     private static final ThreadLocal<Long> userIdContext = new ThreadLocal<>();

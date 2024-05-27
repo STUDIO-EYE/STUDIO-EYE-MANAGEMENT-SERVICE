@@ -1,7 +1,8 @@
-package com.mju.management.global.model.Exception;
+package com.mju.management.global.model.exception;
 
-import static com.mju.management.global.model.Exception.ExceptionList.*;
-
+import com.mju.management.global.model.result.CommonResult;
+import com.mju.management.global.service.ResponseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -10,10 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.mju.management.global.model.Result.CommonResult;
-import com.mju.management.global.service.ResponseService;
-
-import lombok.RequiredArgsConstructor;
+import static com.mju.management.global.model.exception.ExceptionList.INVALID_INPUT_VALUE;
 
 @RestControllerAdvice
 @RequiredArgsConstructor

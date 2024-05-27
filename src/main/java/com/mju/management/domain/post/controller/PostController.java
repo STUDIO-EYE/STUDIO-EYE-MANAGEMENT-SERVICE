@@ -5,7 +5,7 @@ import com.mju.management.domain.post.model.dto.request.DeletePostRequestDto;
 import com.mju.management.domain.post.model.dto.request.RetrieveDetailPostRequestDto;
 import com.mju.management.domain.post.model.dto.request.UpdatePostRequestDto;
 import com.mju.management.domain.post.service.PostServiceImpl;
-import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.model.result.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

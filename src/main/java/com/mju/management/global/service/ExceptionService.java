@@ -1,7 +1,7 @@
 package com.mju.management.global.service;
 
-import com.mju.management.global.model.Exception.*;
-import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.model.exception.*;
+import com.mju.management.global.model.result.CommonResult;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

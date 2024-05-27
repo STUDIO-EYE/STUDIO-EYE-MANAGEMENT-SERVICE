@@ -6,7 +6,7 @@ import com.mju.management.domain.comment.domain.Comment;
 import com.mju.management.domain.comment.domain.CommentCreate;
 import com.mju.management.domain.comment.domain.CommentUpdate;
 import com.mju.management.domain.user.service.UserServiceImpl;
-import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.model.result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -8,17 +8,16 @@ import com.mju.management.domain.comment.service.port.CommentRepository;
 import com.mju.management.domain.post.domain.Post;
 import com.mju.management.domain.post.infrastructure.PostRepository;
 import com.mju.management.domain.project.infrastructure.Project;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
-import com.mju.management.global.model.Exception.ExceptionList;
-import com.mju.management.global.model.Exception.NonExistentException;
-import com.mju.management.global.model.Exception.UnauthorizedAccessException;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
+import com.mju.management.global.model.exception.ExceptionList;
+import com.mju.management.global.model.exception.NonExistentException;
+import com.mju.management.global.model.exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

@@ -5,8 +5,8 @@ import com.mju.management.domain.project.infrastructure.ProjectRepository;
 import com.mju.management.domain.project.infrastructure.ProjectUserRepository;
 import com.mju.management.domain.schedule.dto.response.GetScheduleResponseDto;
 import com.mju.management.domain.schedule.infrastructure.Schedule;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
-import com.mju.management.global.model.Exception.*;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
+import com.mju.management.global.model.exception.*;
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
 import com.mju.management.domain.schedule.infrastructure.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

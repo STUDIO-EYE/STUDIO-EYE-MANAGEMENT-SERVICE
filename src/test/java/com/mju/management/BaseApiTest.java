@@ -3,7 +3,7 @@ package com.mju.management;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.mju.management.domain.project.infrastructure.*;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

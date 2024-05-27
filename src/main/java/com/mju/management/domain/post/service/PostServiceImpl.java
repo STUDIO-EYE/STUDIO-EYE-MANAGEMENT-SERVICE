@@ -13,10 +13,10 @@ import com.mju.management.domain.post.model.dto.request.UpdatePostRequestService
 import com.mju.management.domain.project.infrastructure.Project;
 import com.mju.management.domain.project.infrastructure.ProjectRepository;
 import com.mju.management.domain.user.service.UserServiceImpl;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
-import com.mju.management.global.model.Exception.ExceptionList;
-import com.mju.management.global.model.Exception.UnauthorizedAccessException;
-import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
+import com.mju.management.global.model.exception.ExceptionList;
+import com.mju.management.global.model.exception.UnauthorizedAccessException;
+import com.mju.management.global.model.result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import com.mju.management.global.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mju.management.global.model.Exception.ExceptionList.*;
+import static com.mju.management.global.model.exception.ExceptionList.*;
 
 @Service
 @Transactional

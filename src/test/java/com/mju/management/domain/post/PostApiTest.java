@@ -4,17 +4,12 @@ import com.mju.management.BaseApiTest;
 import com.mju.management.domain.post.domain.Post;
 import com.mju.management.domain.post.infrastructure.Category;
 import com.mju.management.domain.post.infrastructure.PostRepository;
-import com.mju.management.domain.post.model.dto.request.CreatePostRequestDto;
-import com.mju.management.domain.post.model.dto.request.RetrieveDetailPostRequestDto;
 import com.mju.management.domain.project.infrastructure.Project;
-import com.mju.management.domain.schedule.infrastructure.Schedule;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.ResultActions;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

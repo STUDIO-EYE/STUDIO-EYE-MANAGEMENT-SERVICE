@@ -3,7 +3,7 @@ package com.mju.management.domain.schedule.controller;
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
 import com.mju.management.domain.schedule.dto.response.GetScheduleResponseDto;
 import com.mju.management.domain.schedule.service.ScheduleService;
-import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.model.result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

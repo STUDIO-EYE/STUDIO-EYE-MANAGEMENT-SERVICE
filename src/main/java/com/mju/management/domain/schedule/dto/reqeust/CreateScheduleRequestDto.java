@@ -2,8 +2,8 @@ package com.mju.management.domain.schedule.dto.reqeust;
 
 import com.mju.management.domain.project.infrastructure.Project;
 import com.mju.management.domain.schedule.infrastructure.Schedule;
-import com.mju.management.global.model.Exception.ExceptionList;
-import com.mju.management.global.model.Exception.InvalidDateFormatException;
+import com.mju.management.global.model.exception.ExceptionList;
+import com.mju.management.global.model.exception.InvalidDateFormatException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
