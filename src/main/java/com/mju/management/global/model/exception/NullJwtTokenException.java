@@ -1,9 +1,9 @@
-package com.mju.management.global.model.Exception;
+package com.mju.management.global.model.exception;
 
-public class InvalidDateFormatException extends RuntimeException{
+public class NullJwtTokenException extends RuntimeException{
     private final ExceptionList exceptionList;
 
-    public InvalidDateFormatException(ExceptionList exceptionList) {
+    public NullJwtTokenException(ExceptionList exceptionList) {
         super(exceptionList.getMessage());
         this.exceptionList = exceptionList;
     }

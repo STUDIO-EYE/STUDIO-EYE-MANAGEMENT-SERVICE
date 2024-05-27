@@ -1,18 +1,19 @@
-package com.mju.management.global.config.jwtInterceptor;
+package com.mju.management.global.config.jwtinterceptor;
 
-import com.mju.management.global.model.Exception.ExceptionList;
-import com.mju.management.global.model.Exception.NullJwtTokenException;
-import io.jsonwebtoken.*;
+import com.mju.management.global.model.exception.ExceptionList;
+import com.mju.management.global.model.exception.NullJwtTokenException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.handler.WebRequestHandlerInterceptorAdapter;
 
 import java.util.Base64;
 

@@ -1,9 +1,9 @@
-package com.mju.management.global.model.Exception;
+package com.mju.management.global.model.exception;
 
-public class NullJwtTokenException extends RuntimeException{
+public class StartDateAfterEndDateException extends RuntimeException{
     private final ExceptionList exceptionList;
 
-    public NullJwtTokenException(ExceptionList exceptionList) {
+    public StartDateAfterEndDateException(ExceptionList exceptionList) {
         super(exceptionList.getMessage());
         this.exceptionList = exceptionList;
     }

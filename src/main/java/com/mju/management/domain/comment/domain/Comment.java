@@ -1,7 +1,7 @@
 package com.mju.management.domain.comment.domain;
 
 import com.mju.management.domain.post.domain.Post;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
 import lombok.Builder;
 import lombok.Getter;
 

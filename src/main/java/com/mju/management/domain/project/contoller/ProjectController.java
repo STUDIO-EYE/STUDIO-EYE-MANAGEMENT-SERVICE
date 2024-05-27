@@ -3,7 +3,7 @@ package com.mju.management.domain.project.contoller;
 import com.mju.management.domain.project.dto.response.GetProjectListResponseDto;
 import com.mju.management.domain.project.dto.response.GetProjectResponseDto;
 import com.mju.management.domain.project.service.ProjectService;
-import com.mju.management.global.model.Result.CommonResult;
+import com.mju.management.global.model.result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import com.mju.management.domain.project.dto.reqeust.CreateProjectRequestDto;
 import io.swagger.v3.oas.annotations.Operation;

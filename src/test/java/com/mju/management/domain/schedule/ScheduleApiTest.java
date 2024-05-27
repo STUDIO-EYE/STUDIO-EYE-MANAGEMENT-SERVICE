@@ -5,7 +5,7 @@ import com.mju.management.domain.project.infrastructure.Project;
 import com.mju.management.domain.schedule.dto.reqeust.CreateScheduleRequestDto;
 import com.mju.management.domain.schedule.infrastructure.Schedule;
 import com.mju.management.domain.schedule.infrastructure.ScheduleRepository;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

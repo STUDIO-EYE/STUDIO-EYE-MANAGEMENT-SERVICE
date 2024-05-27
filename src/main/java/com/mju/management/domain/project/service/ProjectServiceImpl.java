@@ -1,6 +1,5 @@
 package com.mju.management.domain.project.service;
 
-import com.mju.management.domain.post.domain.Post;
 import com.mju.management.domain.post.domain.PostFile;
 import com.mju.management.domain.post.infrastructure.PostFileRepository;
 import com.mju.management.domain.post.infrastructure.PostRepository;
@@ -11,11 +10,11 @@ import com.mju.management.domain.project.dto.response.GetProjectUserResponseDto;
 import com.mju.management.domain.project.infrastructure.*;
 import com.mju.management.domain.user.dto.GetUserResponseDto;
 import com.mju.management.domain.user.service.UserServiceImpl;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
-import com.mju.management.global.model.Exception.ExceptionList;
-import com.mju.management.global.model.Exception.NonExistentException;
-import com.mju.management.global.model.Exception.StartDateAfterEndDateException;
-import com.mju.management.global.model.Exception.UnauthorizedAccessException;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
+import com.mju.management.global.model.exception.ExceptionList;
+import com.mju.management.global.model.exception.NonExistentException;
+import com.mju.management.global.model.exception.StartDateAfterEndDateException;
+import com.mju.management.global.model.exception.UnauthorizedAccessException;
 import com.mju.management.global.service.S3Service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

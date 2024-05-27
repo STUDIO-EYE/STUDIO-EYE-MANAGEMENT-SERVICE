@@ -3,7 +3,7 @@ package com.mju.management.domain.project;
 import com.mju.management.BaseApiTest;
 import com.mju.management.domain.project.dto.reqeust.CreateProjectRequestDto;
 import com.mju.management.domain.project.infrastructure.*;
-import com.mju.management.global.config.jwtInterceptor.JwtContextHolder;
+import com.mju.management.global.config.jwtinterceptor.JwtContextHolder;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.mju.management.global.model.Exception;
+package com.mju.management.global.model.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

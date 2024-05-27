@@ -1,8 +1,8 @@
 package com.mju.management.global.service;
 
-import com.mju.management.global.model.Result.CommonResult;
-import com.mju.management.global.model.Result.ListResult;
-import com.mju.management.global.model.Result.SingleResult;
+import com.mju.management.global.model.result.CommonResult;
+import com.mju.management.global.model.result.ListResult;
+import com.mju.management.global.model.result.SingleResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,8 +19,8 @@ public class ResponseService {
     private enum CommonResponse {
         SUCCESS(200, "성공하였습니다.");
 
-        int code;
-        String message;
+        final int code;
+        final String message;
     }
     public <T> SingleResult<T> getSingleResult(T data) {
         SingleResult<T> result = new SingleResult<T>();

@@ -1,4 +1,4 @@
-package com.mju.management.global.model.Result;
+package com.mju.management.global.model.result;
 
 import lombok.Getter;
 import lombok.Setter;
