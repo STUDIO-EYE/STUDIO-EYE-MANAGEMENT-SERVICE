@@ -20,10 +20,13 @@ public class PostFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length=1000)
     private String fileName;
 
+    @Column(length=1000)
     private String filePath;
 
+    @Column(length=1000)
     private String s3key;
 
     @Nullable
