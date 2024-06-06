@@ -8,28 +8,11 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Builder
 public class CommentPageResponse {
-
-    @Schema(description = "댓글 Id")
-    private Long id;
-
-    @Schema(description = "작성 시간 (2023.09.16 11:11)")
-    private String createdAt;
-
-    @Schema(description = "댓글")
-    private String content;
-
-    @Schema(description = "게시글 Id")
-    private Long postId;
-
-    @Schema(description = "수정 시간 (2023.09.16 11:11)")
-    private String updatedAt;
-
-    @Schema(description = "댓글 작성자")
-    private String userName;
 
     @Schema(description = "현재 페이지 번호")
     private Integer currentPageNumber;
@@ -43,13 +26,23 @@ public class CommentPageResponse {
     @Schema(description = "전체 요소 개수")
     private Integer totalElements;
 
+    List<CommentResponse> commentResponses;
+
+    @Builder
+    public CommentPageResponse(Integer currentPageNumber, Integer pageSize, Integer totalPages, Integer totalElements) {
+        this.commentResponses = new ArrayList<>();
+        this.currentPageNumber = currentPageNumber;
+        this.pageSize = pageSize;
+        this.totalPages = totalPages;
+        this.totalElements = totalElements;
+    }
 
     public static String changDateFormat(LocalDateTime dateTime){
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
     }
 
-    public static CommentPageResponse from(Comment comment, String username){
-        return CommentPageResponse.builder()
+    public static CommentResponse from(Comment comment, String username){
+        return CommentResponse.builder()
                 .id(comment.getId())
                 .createdAt(changDateFormat(comment.getCreatedAt()))
                 .updatedAt(comment.getUpdatedAt() == null ? null : changDateFormat(comment.getUpdatedAt()))

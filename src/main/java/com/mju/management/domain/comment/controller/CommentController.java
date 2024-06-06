@@ -53,10 +53,16 @@ public class CommentController {
 //        List<CommentResponse> commentResponses = new ArrayList<>();
 //        comments.forEach(comment -> commentResponses.add(CommentResponse.from(comment, getName(comment.getWriteId()))));
 
-        List<CommentPageResponse> commentPageResponses = new ArrayList<>();
-        comments.getCommentList().forEach(comment -> commentPageResponses.add(CommentPageResponse.from(comment, getName(comment.getWriteId()))));
+        CommentPageResponse commentPageResponse = CommentPageResponse.builder()
+                .currentPageNumber(comments.getCurrentPageNumber())
+                .pageSize(comments.getPageSize())
+                .totalPages(comments.getTotalPages())
+                .totalElements(comments.getTotalElements())
+                .build();
 
-        return responseService.getSingleResult(commentPageResponses);
+        comments.getCommentList().forEach(comment -> commentPageResponse.getCommentResponses().add(CommentPageResponse.from(comment, getName(comment.getWriteId()))));
+
+        return responseService.getSingleResult(commentPageResponse);
     }
 
     @Operation(summary = "댓글 수정")

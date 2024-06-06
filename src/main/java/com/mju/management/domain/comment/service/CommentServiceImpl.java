@@ -71,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
                 .totalElements((int) totalElements)
                 .build();
 
-        post.getCommentList().forEach(commentEntity -> commentPageRes.getCommentList().add(commentEntity.toModel()));
+        commentList.forEach(comment -> commentPageRes.getCommentList().add(comment));
 
 //        List<Comment> comments = new ArrayList<>();
 //        post.getCommentList().forEach(commentEntity-> comments.add(commentEntity.toModel()));
