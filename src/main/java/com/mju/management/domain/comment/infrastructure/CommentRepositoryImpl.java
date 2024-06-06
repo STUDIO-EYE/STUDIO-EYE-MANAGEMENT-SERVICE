@@ -4,6 +4,8 @@ import com.mju.management.domain.comment.domain.Comment;
 import com.mju.management.domain.comment.service.port.CommentRepository;
 import com.mju.management.domain.post.domain.Post;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,4 +40,8 @@ public class CommentRepositoryImpl implements CommentRepository {
         }
     }
 
+    @Override
+    public Page<Comment> findCommentsByPost(Post post, Pageable pageable) {
+        return commentJpaRepository.findCommentsByPost(post, pageable);
+    }
 }
