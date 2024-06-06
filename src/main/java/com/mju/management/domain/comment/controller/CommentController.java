@@ -46,9 +46,9 @@ public class CommentController {
 
     @Operation(summary = "게시글 Id에 따른 댓글 읽기")
     @GetMapping("/posts/{postId}/comments")
-    public CommonResult read(@PathVariable Long postId, @Positive @RequestParam(value = "page", defaultValue = "1") Integer page){
+    public CommonResult read(@PathVariable Long postId, @Positive @RequestParam(value = "page", defaultValue = "1") Integer page, @Positive @RequestParam(value = "pageSize", defaultValue = "5")Integer pageSize){
 //        List<Comment> comments = commentService.read(postId, page - 1);
-        CommentPageRes comments = commentService.read(postId, page - 1);
+        CommentPageRes comments = commentService.read(postId, page - 1, pageSize);
 
 //        List<CommentResponse> commentResponses = new ArrayList<>();
 //        comments.forEach(comment -> commentResponses.add(CommentResponse.from(comment, getName(comment.getWriteId()))));

@@ -48,14 +48,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentPageRes read(Long postId, Integer page) {
+    public CommentPageRes read(Long postId, Integer page, Integer size) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다."));
 
         // 요청자가 해당 프로젝트의 팀원인지 확인
         checkMemberAuthorization(post.getProject(), JwtContextHolder.getUserId());
 
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, size);
         Page<Comment> commentPage = commentRepository.findCommentsByPost(post, pageable);
         List<Comment> commentList = commentPage.getContent();
 

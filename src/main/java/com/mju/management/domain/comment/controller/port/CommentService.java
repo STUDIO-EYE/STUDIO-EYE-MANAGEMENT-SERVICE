@@ -11,7 +11,7 @@ public interface CommentService {
     Comment create(Long postId, CommentCreate commentCreate);
 
 //    List<Comment> read(Long postId, Integer page);
-    CommentPageRes read(Long postId, Integer page);
+    CommentPageRes read(Long postId, Integer page, Integer pageSize);
 
     Comment update(Long commentId, CommentUpdate commentUpdate);
 
