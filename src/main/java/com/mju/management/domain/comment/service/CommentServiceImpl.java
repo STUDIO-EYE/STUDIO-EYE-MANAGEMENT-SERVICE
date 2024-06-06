@@ -4,6 +4,7 @@ import com.mju.management.domain.comment.controller.port.CommentService;
 import com.mju.management.domain.comment.domain.Comment;
 import com.mju.management.domain.comment.domain.CommentCreate;
 import com.mju.management.domain.comment.domain.CommentUpdate;
+import com.mju.management.domain.comment.dto.CommentPageRes;
 import com.mju.management.domain.comment.service.port.CommentRepository;
 import com.mju.management.domain.post.domain.Post;
 import com.mju.management.domain.post.infrastructure.PostRepository;
@@ -13,10 +14,12 @@ import com.mju.management.global.model.exception.ExceptionList;
 import com.mju.management.global.model.exception.NonExistentException;
 import com.mju.management.global.model.exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,16 +48,35 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> read(Long postId) {
+    public CommentPageRes read(Long postId, Integer page) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다."));
 
         // 요청자가 해당 프로젝트의 팀원인지 확인
         checkMemberAuthorization(post.getProject(), JwtContextHolder.getUserId());
 
-        List<Comment> comments = new ArrayList<>();
-        post.getCommentList().forEach(commentEntity-> comments.add(commentEntity.toModel()));
-        return comments;
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Comment> commentPage = commentRepository.findCommentsByPost(post, pageable);
+        List<Comment> commentList = commentPage.getContent();
+
+        int currentPageNumber = pageable.getPageNumber() + 1;
+        int pageSize = pageable.getPageSize();
+        int totalPages = commentPage.getTotalPages();
+        long totalElements = commentPage.getTotalElements();
+
+        CommentPageRes commentPageRes = CommentPageRes.builder()
+                .currentPageNumber(currentPageNumber)
+                .pageSize(pageSize)
+                .totalPages(totalPages)
+                .totalElements((int) totalElements)
+                .build();
+
+        post.getCommentList().forEach(commentEntity -> commentPageRes.getCommentList().add(commentEntity.toModel()));
+
+//        List<Comment> comments = new ArrayList<>();
+//        post.getCommentList().forEach(commentEntity-> comments.add(commentEntity.toModel()));
+//
+        return commentPageRes;
     }
 
     @Override

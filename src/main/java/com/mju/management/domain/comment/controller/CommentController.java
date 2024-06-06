@@ -5,12 +5,15 @@ import com.mju.management.domain.comment.controller.response.CommentResponse;
 import com.mju.management.domain.comment.domain.Comment;
 import com.mju.management.domain.comment.domain.CommentCreate;
 import com.mju.management.domain.comment.domain.CommentUpdate;
+import com.mju.management.domain.comment.dto.CommentPageRes;
+import com.mju.management.domain.comment.dto.CommentPageResponse;
 import com.mju.management.domain.user.service.UserServiceImpl;
 import com.mju.management.global.model.result.CommonResult;
 import com.mju.management.global.service.ResponseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,12 +46,17 @@ public class CommentController {
 
     @Operation(summary = "게시글 Id에 따른 댓글 읽기")
     @GetMapping("/posts/{postId}/comments")
-    public CommonResult read(@PathVariable Long postId){
-        List<Comment> comments = commentService.read(postId);
+    public CommonResult read(@PathVariable Long postId, @Positive @RequestParam(value = "page", defaultValue = "1") Integer page){
+//        List<Comment> comments = commentService.read(postId, page - 1);
+        CommentPageRes comments = commentService.read(postId, page - 1);
 
-        List<CommentResponse> commentResponses = new ArrayList<>();
-        comments.forEach(comment -> commentResponses.add(CommentResponse.from(comment, getName(comment.getWriteId()))));
-        return responseService.getSingleResult(commentResponses);
+//        List<CommentResponse> commentResponses = new ArrayList<>();
+//        comments.forEach(comment -> commentResponses.add(CommentResponse.from(comment, getName(comment.getWriteId()))));
+
+        List<CommentPageResponse> commentPageResponses = new ArrayList<>();
+        comments.getCommentList().forEach(comment -> commentPageResponses.add(CommentPageResponse.from(comment, getName(comment.getWriteId()))));
+
+        return responseService.getSingleResult(commentPageResponses);
     }
 
     @Operation(summary = "댓글 수정")
